@@ -102,8 +102,9 @@ function* CREATE_NEW_LEAVE_REQUEST(action) {
         const token = yield AsyncStorage.getItem('token');
         const employeeId = yield AsyncStorage.getItem('hc360EmployeeId');
         yield put({ type: ActionsTypes.CREATE_NEW_LEAVE_REQUEST_PENDING });
-        const response = yield axios.post(configs.CREATE_NEW_LEAVE_REQUEST, {
-            EmployeeID: employeeId,
+        const data = 
+        {
+            EmployeeID: parseInt(employeeId),
             LeaveTypeId: action.LeaveTypeId,
             startDate: action.startDate,
             endDate: action.endDate,
@@ -112,7 +113,11 @@ function* CREATE_NEW_LEAVE_REQUEST(action) {
             reliefEmployeeId: action.reliefEmployeeId,
             daysOff: action.daysOff,
             Note: action.Note
-        }, {
+        };  
+
+        console.log(data);
+
+        const response = yield axios.post(configs.CREATE_NEW_LEAVE_REQUEST, data , {
                 headers: {
                     'Authorization': token
                 }

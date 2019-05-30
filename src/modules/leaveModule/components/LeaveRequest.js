@@ -69,6 +69,7 @@ class LeaveRequest extends Component {
     }
 
     render() {
+
         if (this.props.loading) {
             return (
                 <Loading />
@@ -277,7 +278,7 @@ class LeaveRequest extends Component {
                             // console.log(this.state.Not);
                             this.props.createNewLeaveRequestReducer(
                                 this.props.EmployeeID,
-                                this.state.LeaveTypeId,
+                                (this.state.LeaveTypeId != '' ? this.state.LeaveTypeId : this.props. firstData),
                                 moment(this.state.startDate).format('DD/MM/YYYY'),
                                 moment(this.state.endDate).format('DD/MM/YYYY'),
                                 this.state.startTime,
@@ -311,6 +312,7 @@ const mapStateToProps = (state) => {
         loading: state.leaveReducer.getLeaveRequestTypeReducer.loading,
         error: state.leaveReducer.getLeaveRequestTypeReducer.error,
         data: state.leaveReducer.getLeaveRequestTypeReducer.data,
+        firstData: state.leaveReducer.getLeaveRequestTypeReducer.firstData,
         loading1: state.leaveReducer.createNewLeaveRequestReducer.loading,
         error1: state.leaveReducer.createNewLeaveRequestReducer.error,
         EmployeeID: state.authReducer.loginReducer.hc360EmployeeId
